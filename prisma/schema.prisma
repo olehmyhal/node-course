@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Pizza {
+model Promotion {
   id Int @id @default(autoincrement())
   image String?
   title String
@@ -18,41 +18,37 @@ model Pizza {
   createdDiscountAt DateTime
   endDiscountAt DateTime
   publishDiscountAt DateTime
-  city PizzaOnCity[]
+  city PromotionOnCity[]
   link String?
-  tags PizzaOnTag[]
+  tags PromotionOnTag[]
 }
 
 model Tag {
   id Int @id @default(autoincrement())
   title String
-  pizzas PizzaOnTag[]
+  promotions PromotionOnTag[]
 }
 
-model PizzaOnCity {
-  pizza Pizza? @relation(fields: [pizzaId], references: [id])
-  pizzaId Int
-  city City? @relation(fields: [cityId], references: [id])
+model PromotionOnCity {
+  promotion Promotion @relation(fields: [promotionId], references: [id])
+  promotionId Int
+  city City @relation(fields: [cityId], references: [id])
   cityId Int
-  createdAt DateTime
-  updatedAt DateTime
 
-  @@id([pizzaId, cityId])
+  @@id([promotionId, cityId])
 }
 
-model PizzaOnTag {
-  pizza Pizza? @relation(fields: [pizzaId], references: [id])
-  pizzaId Int
-  tag Tag? @relation(fields: [postId], references: [id])
+model PromotionOnTag {
+  promotion Promotion @relation(fields: [promotionId], references: [id])
+  promotionId Int
+  tag Tag @relation(fields: [postId], references: [id])
   postId Int
-  createdAt DateTime
-  updatedAt DateTime
 
-  @@id([pizzaId, postId])
+  @@id([promotionId, postId])
 }
 
 model City {
   id Int @id @default(autoincrement())
   name String
-  pizzas PizzaOnCity[]
+  promotions PromotionOnCity[]
 }
