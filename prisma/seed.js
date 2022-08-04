@@ -37,16 +37,6 @@ const main = async () => {
   await prisma.tag.deleteMany({});
   await prisma.promotion.deleteMany({});
 
-  // await prisma.city.createMany({
-  //   data: [citySeedData, citySeedData2],
-  // });
-  // const cityRes = await prisma.city.findMany({});
-
-  // await prisma.tag.createMany({
-  //   data: [tagSeedData, tagSeedData2],
-  // });
-  // const tagRes = await prisma.tag.findMany({});
-
   await prisma.promotion.create({
     data: {
       ...promotionSeedData,
