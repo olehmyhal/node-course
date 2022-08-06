@@ -1,7 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 
+//TODO: change public to private
 export class PrismaService {
-  protected client: PrismaClient;
+  public client: PrismaClient;
 
   constructor() {
     this.client = new PrismaClient();
