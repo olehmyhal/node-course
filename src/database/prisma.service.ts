@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 //TODO: change public to private
 export class PrismaService {
-  public client: PrismaClient;
+  private client: PrismaClient;
 
   constructor() {
     this.client = new PrismaClient();
@@ -22,5 +22,9 @@ export class PrismaService {
 
   async disconnect(): Promise<void> {
     await this.client.$disconnect();
+  }
+
+  getInstance() {
+    return this.client;
   }
 }
