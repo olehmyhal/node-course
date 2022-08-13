@@ -1,7 +1,10 @@
 import { Scenes, Telegraf } from "telegraf";
+import { PrismaService } from "../database/prisma.service.js";
 import { LocalSessionService } from "../localSession/localSession.service.js";
 import { SceneGenerator } from "./scenes.service.js";
-import { BotContext } from "./telegraf.service.interface.js";
+import { BotContext } from "../types/bot.types";
+import { CityScene } from "./scenes/city.scene.js";
+import { TagsScene } from "./scenes/tags.scene.js";
 
 export class TelegrafService {
   private bot: Telegraf<BotContext>;
@@ -12,12 +15,11 @@ export class TelegrafService {
     this.localSessionService = new LocalSessionService();
   }
 
-  launch() {
-    const scenes = new SceneGenerator();
-    const cityScene = scenes.SceneCityGenerator();
-    const tagsScene = scenes.SceneTagsGenerator(this.bot);
+  launch(prismaService: PrismaService) {
+    const cityScene = new SceneGenerator(new CityScene(prismaService)).init();
+    const tagScene = new SceneGenerator(new TagsScene(prismaService)).init();
 
-    const stage = new Scenes.Stage<BotContext>([cityScene, tagsScene]);
+    const stage = new Scenes.Stage<BotContext>([cityScene, tagScene]);
 
     this.bot.use(this.localSessionService.middleware());
     this.bot.use(stage.middleware());

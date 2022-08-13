@@ -16,7 +16,7 @@ export class App {
     }
 
     const telegrafService = new TelegrafService(token);
-    telegrafService.launch();
+    telegrafService.launch(this.prismaService);
 
     await this.prismaService.connect();
   }

@@ -1,10 +1,10 @@
-import { City } from "@prisma/client";
+import { City, Tag } from "@prisma/client";
 import { Context, Scenes } from "telegraf";
 
 export interface BotSessionScene extends Scenes.SceneSessionData {}
 export interface BotSession extends Scenes.SceneSession<BotSessionScene> {
   city: City | null;
-  tags: string[] | null;
+  tags: Tag[] | null;
 }
 
 export interface BotContext extends Context {
