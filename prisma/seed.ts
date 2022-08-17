@@ -3,11 +3,11 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const tagSeedData = {
-  title: "new",
+  name: "new",
 };
 
 const tagSeedData2 = {
-  title: "hot",
+  name: "hot",
 };
 
 const citySeedData = {
@@ -47,7 +47,7 @@ const main = async () => {
       },
       tags: {
         create: [tagSeedData, tagSeedData2].map((tagVal) => ({
-          tag: { create: { title: tagVal.title } },
+          tag: { create: { name: tagVal.name } },
         })),
       },
     },
